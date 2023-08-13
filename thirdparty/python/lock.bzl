@@ -38,6 +38,14 @@ def targets():
     )
 
     native.config_setting(
+        name = "_env_python_linux_arm64",
+        constraint_values = [
+            "@platforms//os:linux",
+            "@platforms//cpu:aarch64",
+        ],
+    )
+
+    native.config_setting(
         name = "_env_python_linux_x86_64",
         constraint_values = [
             "@platforms//os:linux",
@@ -48,6 +56,7 @@ def targets():
     _target = select({
         ":_env_python_darwin_arm64": "@//tools/toolchains:python_darwin_arm64",
         ":_env_python_darwin_x86_64": "@//tools/toolchains:python_darwin_x86_64",
+        ":_env_python_linux_arm64": "@//tools/toolchains:python_linux_arm64",
         ":_env_python_linux_x86_64": "@//tools/toolchains:python_linux_x86_64",
     })
 

@@ -8,7 +8,7 @@ load(
 )
 
 load(
-  "//tools/platforms:constraints.bzl", "darwin_arm64_constraints", "darwin_x86_64_constraints", "linux_x86_64_constraints"
+  "//tools/platforms:constraints.bzl", "darwin_arm64_constraints", "darwin_x86_64_constraints", "linux_x86_64_constraints", "linux_arm64_constraints"
 )
 
 PYTHON_VERSION = "3.10.4"
@@ -46,11 +46,26 @@ pycross_target_environment(
     visibility = ["//visibility:public"],
 )
 
+pycross_target_environment(
+    name = "python_linux_arm64",
+    abis = ["cp39"],
+    platforms = [
+        "linux_arm64",
+        "manylinux2014_arm64",
+    ] + [
+        "manylinux_2_%s_arm64" % str(i)
+        for i in range(17, 25)
+    ],
+    python_compatible_with = linux_arm64_constraints,
+    version = PYTHON_VERSION,
+    visibility = ["//visibility:public"],
+)
+
 pycross_hermetic_toolchain(
     name = "pycross_darwin_linux",
-    exec_interpreter = "@python3_9_aarch64-apple-darwin//:py3_runtime",
+    exec_interpreter = "@python_3_10_aarch64-apple-darwin//:py3_runtime",
     target_environment = ":python_linux_x86_64",
-    target_interpreter = "@python3_9_x86_64-unknown-linux-gnu//:py3_runtime",
+    target_interpreter = "@python_3_10_x86_64-unknown-linux-gnu//:py3_runtime",
 )
 
 toolchain(
@@ -63,9 +78,9 @@ toolchain(
 
 pycross_hermetic_toolchain(
     name = "pycross_darwin_darwin",
-    exec_interpreter = "@python3_9_x86_64-apple-darwin//:py3_runtime",
+    exec_interpreter = "@python_3_10_x86_64-apple-darwin//:py3_runtime",
     target_environment = ":python_darwin_x86_64",
-    target_interpreter = "@python3_9_x86_64-apple-darwin//:py3_runtime",
+    target_interpreter = "@python_3_10_x86_64-apple-darwin//:py3_runtime",
 )
 
 toolchain(
@@ -78,9 +93,9 @@ toolchain(
 
 pycross_hermetic_toolchain(
     name = "pycross_linux_linux",
-    exec_interpreter = "@python3_9_x86_64-unknown-linux-gnu//:py3_runtime",
+    exec_interpreter = "@python_3_10_x86_64-unknown-linux-gnu//:py3_runtime",
     target_environment = ":python_linux_x86_64",
-    target_interpreter = "@python3_9_x86_64-unknown-linux-gnu//:py3_runtime",
+    target_interpreter = "@python_3_10_x86_64-unknown-linux-gnu//:py3_runtime",
 )
 
 toolchain(
@@ -93,9 +108,9 @@ toolchain(
 
 pycross_hermetic_toolchain(
     name = "pycross_linux_darwin",
-    exec_interpreter = "@python3_9_x86_64-unknown-linux-gnu//:py3_runtime",
+    exec_interpreter = "@python_3_10_x86_64-unknown-linux-gnu//:py3_runtime",
     target_environment = ":python_darwin_x86_64",
-    target_interpreter = "@python3_9_x86_64-apple-darwin//:py3_runtime",
+    target_interpreter = "@python_3_10_x86_64-apple-darwin//:py3_runtime",
 )
 
 toolchain(
@@ -103,5 +118,20 @@ toolchain(
     exec_compatible_with = linux_x86_64_constraints,
     target_compatible_with = darwin_x86_64_constraints,
     toolchain = ":pycross_linux_darwin",
+    toolchain_type = "@jvolkman_rules_pycross//pycross:toolchain_type",
+)
+
+pycross_hermetic_toolchain(
+    name = "pycross_darwin_linux_arm",
+    exec_interpreter = "@python_3_10_aarch64-apple-darwin//:py3_runtime",
+    target_environment = ":python_linux_arm64",
+    target_interpreter = "@python_3_10_aarch64-unknown-linux-gnu//:py3_runtime",
+)
+
+toolchain(
+    name = "pycross_darwin_linux_tc_arm",
+    exec_compatible_with = darwin_arm64_constraints,
+    target_compatible_with = linux_arm64_constraints,
+    toolchain = ":pycross_darwin_linux_arm",
     toolchain_type = "@jvolkman_rules_pycross//pycross:toolchain_type",
 )

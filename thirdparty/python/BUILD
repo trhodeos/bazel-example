@@ -38,6 +38,7 @@ pycross_lock_file(
         "//tools/toolchains:python_darwin_x86_64",
         "//tools/toolchains:python_darwin_arm64",
         "//tools/toolchains:python_linux_x86_64",
+        "//tools/toolchains:python_linux_arm64",
     ],
 )
 
