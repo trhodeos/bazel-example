@@ -1,5 +1,5 @@
 load("@rules_proto//proto:defs.bzl", "proto_library")
-load("@rules_proto_grpc//python:defs.bzl", "python_grpc_compile")
+load("@rules_proto_grpc//python:defs.bzl", "python_grpc_library")
 
 proto_library(
     name = "hello_service_proto",
@@ -8,7 +8,7 @@ proto_library(
 )
 
 
-python_grpc_compile(
+python_grpc_library(
     name = "hello_service_proto_py",
     protos = [":hello_service_proto"],
 )

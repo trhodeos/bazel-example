@@ -1,3 +1,5 @@
 common --enable_bzlmod
 build --incompatible_enable_cc_toolchain_resolution
+# For grpc builder
+build --cxxopt=-std=c++14
 
