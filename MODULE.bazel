@@ -7,9 +7,6 @@ bazel_dep(name = "rules_oci", version = "1.2.0")
 bazel_dep(name = "rules_pkg", version = "0.9.1")
 
 bazel_dep(name = "rules_python", version = "0.24.0")
-bazel_dep(name = "rules_python_gazelle_plugin", version = "0.24.0")
-
-bazel_dep(name = "gazelle", version = "0.32.0", repo_name = "bazel_gazelle")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
