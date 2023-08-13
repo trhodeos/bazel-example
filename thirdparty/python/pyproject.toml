@@ -1,0 +1,8 @@
+[tool.poetry]
+name = "bazel-example"
+version = "0.1"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python-i18n = "^0.3.9"
