@@ -28,6 +28,7 @@ lock_repo_install_deps()
 
 register_toolchains(
     "//tools/toolchains:pycross_darwin_linux_tc",
+    "//tools/toolchains:pycross_darwin_linux_tc_arm",
     "//tools/toolchains:pycross_darwin_darwin_tc",
     "//tools/toolchains:pycross_linux_linux_tc",
     "//tools/toolchains:pycross_linux_darwin_tc",

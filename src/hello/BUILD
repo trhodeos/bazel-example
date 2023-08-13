@@ -8,6 +8,7 @@ py_binary(
     main = "hello_world.py",
     deps = [
       "//thirdparty/python:python_i18n",
+      "//thirdparty/python:numpy",
     ],
 )
 

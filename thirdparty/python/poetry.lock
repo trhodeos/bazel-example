@@ -83,6 +83,11 @@ files = [
     {file = "numpy-1.25.2.tar.gz", hash = "sha256:fd608e19c8d7c55021dffd43bfe5492fab8cc105cc8986f813f8c3c048b38760"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://pypi.anaconda.org/multibuild-wheels-staging/simple"
+reference = "scipy-precompiled"
+
 [[package]]
 name = "pybind11"
 version = "2.11.1"
@@ -144,4 +149,4 @@ test = ["pytest (>=6.0.0)", "setuptools (>=65)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "~=3.10"
-content-hash = "bc49202fea18855fd48eb54ec4569e73d061df5e732da1451e84d9bf4829ff75"
+content-hash = "02fa777b794a66b69e7d2d2677970cf6b4938adb546d13309f86e1adfcf80d86"

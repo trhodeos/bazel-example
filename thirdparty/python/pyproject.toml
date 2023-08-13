@@ -4,6 +4,10 @@ version = "0.1"
 description = ""
 authors = []
 
+[[tool.poetry.source]]
+name = "scipy-precompiled"
+url = "https://pypi.anaconda.org/multibuild-wheels-staging/simple"
+
 [tool.poetry.dependencies]
 python = "~=3.10"
 

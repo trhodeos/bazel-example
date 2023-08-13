@@ -4,6 +4,7 @@ load(
     "pycross_poetry_lock_model",
 )
 
+
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 
 load(":lock.bzl", "targets")
@@ -26,14 +27,6 @@ pycross_lock_file(
     default_alias_single_version = True,
     lock_model_file = ":lock_model",
     pypi_index = "https://pypi.org",
-    package_build_dependencies = {
-        "numpy": [
-            "setuptools",
-            "wheel",
-            "cython",
-            "pybind11"
-        ],
-    },
     target_environments = [
         "//tools/toolchains:python_darwin_x86_64",
         "//tools/toolchains:python_darwin_arm64",

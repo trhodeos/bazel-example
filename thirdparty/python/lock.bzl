@@ -62,27 +62,29 @@ def targets():
 
     pycross_wheel_library(
         name = "cython_0.29.34",
-        wheel = "@lock_wheel_cython_0.29.34_py2.py3_none_any//file",
+        wheel = select({
+            ":_env_python_darwin_arm64": "@lock_wheel_cython_0.29.34_py2.py3_none_any//file",
+            ":_env_python_darwin_x86_64": "@lock_wheel_cython_0.29.34_py2.py3_none_any//file",
+            ":_env_python_linux_arm64": "@lock_wheel_cython_0.29.34_py2.py3_none_any//file",
+            ":_env_python_linux_x86_64": "@lock_wheel_cython_0.29.34_cp310_cp310_manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64//file",
+        }),
     )
-
-    _numpy_1_25_2_build_deps = [
-        ":cython_0.29.34",
-        ":pybind11_2.11.1",
-        ":setuptools_68.0.0",
-        ":wheel_0.41.1",
-    ]
 
     pycross_wheel_build(
         name = "_build_numpy_1.25.2",
         sdist = "@lock_sdist_numpy_1.25.2//file",
         target_environment = _target,
-        deps = _numpy_1_25_2_build_deps,
         tags = ["manual"],
     )
 
     pycross_wheel_library(
         name = "numpy_1.25.2",
-        wheel = ":_build_numpy_1.25.2",
+        wheel = select({
+            ":_env_python_darwin_arm64": "@lock_wheel_numpy_1.25.2_cp310_cp310_macosx_11_0_arm64//file",
+            ":_env_python_darwin_x86_64": "@lock_wheel_numpy_1.25.2_cp310_cp310_macosx_10_9_x86_64//file",
+            ":_env_python_linux_arm64": ":_build_numpy_1.25.2",
+            ":_env_python_linux_x86_64": "@lock_wheel_numpy_1.25.2_cp310_cp310_manylinux_2_17_x86_64.manylinux2014_x86_64//file",
+        }),
     )
 
     pycross_wheel_library(
@@ -118,11 +120,51 @@ def repositories():
 
     maybe(
         pypi_file,
+        name = "lock_wheel_cython_0.29.34_cp310_cp310_manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64",
+        package_name = "cython",
+        package_version = "0.29.34",
+        filename = "Cython-0.29.34-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl",
+        sha256 = "308c8f1e58bf5e6e8a1c4dcf8abbd2d13d0f9b1e582f4d9ae8b89857342d8bb5",
+        index = "https://pypi.org",
+    )
+
+    maybe(
+        pypi_file,
         name = "lock_wheel_cython_0.29.34_py2.py3_none_any",
         package_name = "cython",
         package_version = "0.29.34",
         filename = "Cython-0.29.34-py2.py3-none-any.whl",
         sha256 = "be4f6b7be75a201c290c8611c0978549c60353890204573078e865423dbe3c83",
+        index = "https://pypi.org",
+    )
+
+    maybe(
+        pypi_file,
+        name = "lock_wheel_numpy_1.25.2_cp310_cp310_macosx_10_9_x86_64",
+        package_name = "numpy",
+        package_version = "1.25.2",
+        filename = "numpy-1.25.2-cp310-cp310-macosx_10_9_x86_64.whl",
+        sha256 = "db3ccc4e37a6873045580d413fe79b68e47a681af8db2e046f1dacfa11f86eb3",
+        index = "https://pypi.org",
+    )
+
+    maybe(
+        pypi_file,
+        name = "lock_wheel_numpy_1.25.2_cp310_cp310_macosx_11_0_arm64",
+        package_name = "numpy",
+        package_version = "1.25.2",
+        filename = "numpy-1.25.2-cp310-cp310-macosx_11_0_arm64.whl",
+        sha256 = "90319e4f002795ccfc9050110bbbaa16c944b1c37c0baeea43c5fb881693ae1f",
+        index = "https://pypi.org",
+    )
+
+    maybe(
+        pypi_file,
+        name = "lock_wheel_numpy_1.25.2_cp310_cp310_manylinux_2_17_x86_64.manylinux2014_x86_64",
+        package_name = "numpy",
+        package_version = "1.25.2",
+        filename = "numpy-1.25.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        sha256 = "f08f2e037bba04e707eebf4bc934f1972a315c883a9e0ebfa8a7756eabf9e357",
         index = "https://pypi.org",
     )
 
