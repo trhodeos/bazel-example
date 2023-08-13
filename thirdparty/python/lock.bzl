@@ -7,7 +7,7 @@ load("@jvolkman_rules_pycross//pycross:defs.bzl", "pycross_wheel_build", "pycros
 
 PINS = {
     "cython": "cython_0.29.34",
-    "numpy": "numpy_1.22.3",
+    "numpy": "numpy_1.25.2",
     "pybind11": "pybind11_2.11.1",
     "python_i18n": "python_i18n_0.3.9",
     "setuptools": "setuptools_68.0.0",
@@ -56,7 +56,7 @@ def targets():
         wheel = "@lock_wheel_cython_0.29.34_py2.py3_none_any//file",
     )
 
-    _numpy_1_22_3_build_deps = [
+    _numpy_1_25_2_build_deps = [
         ":cython_0.29.34",
         ":pybind11_2.11.1",
         ":setuptools_68.0.0",
@@ -64,16 +64,16 @@ def targets():
     ]
 
     pycross_wheel_build(
-        name = "_build_numpy_1.22.3",
-        sdist = "@lock_sdist_numpy_1.22.3//file",
+        name = "_build_numpy_1.25.2",
+        sdist = "@lock_sdist_numpy_1.25.2//file",
         target_environment = _target,
-        deps = _numpy_1_22_3_build_deps,
+        deps = _numpy_1_25_2_build_deps,
         tags = ["manual"],
     )
 
     pycross_wheel_library(
-        name = "numpy_1.22.3",
-        wheel = ":_build_numpy_1.22.3",
+        name = "numpy_1.25.2",
+        wheel = ":_build_numpy_1.25.2",
     )
 
     pycross_wheel_library(
@@ -99,11 +99,11 @@ def targets():
 def repositories():
     maybe(
         pypi_file,
-        name = "lock_sdist_numpy_1.22.3",
+        name = "lock_sdist_numpy_1.25.2",
         package_name = "numpy",
-        package_version = "1.22.3",
-        filename = "numpy-1.22.3.zip",
-        sha256 = "dbc7601a3b7472d559dc7b933b18b4b66f9aa7452c120e87dfb33d02008c8a18",
+        package_version = "1.25.2",
+        filename = "numpy-1.25.2.tar.gz",
+        sha256 = "fd608e19c8d7c55021dffd43bfe5492fab8cc105cc8986f813f8c3c048b38760",
         index = "https://pypi.org",
     )
 
