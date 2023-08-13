@@ -11,6 +11,24 @@ py_binary(
     ],
 )
 
+py_binary(
+    name = "hello_service_bin",
+    srcs = ["hello_service.py"],
+    main = "hello_service.py",
+    deps = [
+        "//src/hello/proto:hello_service_proto_py",
+    ],
+)
+
+py_binary(
+    name = "hello_client_bin",
+    srcs = ["hello_client.py"],
+    main = "hello_client.py",
+    deps = [
+        "//src/hello/proto:hello_service_proto_py",
+    ],
+)
+
 py_image_layer(
     name = "hello_world_layer",
     binary = ":hello_world_bin",
