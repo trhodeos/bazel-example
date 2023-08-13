@@ -6,6 +6,7 @@ load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 load("@jvolkman_rules_pycross//pycross:defs.bzl", "pycross_wheel_build", "pycross_wheel_library", "pypi_file")
 
 PINS = {
+    "numpy": "numpy_1.22.3",
     "python_i18n": "python_i18n_0.3.9",
 }
 
@@ -46,12 +47,34 @@ def targets():
         ":_env_python_linux_x86_64": "@//tools/toolchains:python_linux_x86_64",
     })
 
+    pycross_wheel_build(
+        name = "_build_numpy_1.22.3",
+        sdist = "@lock_sdist_numpy_1.22.3//file",
+        target_environment = _target,
+        tags = ["manual"],
+    )
+
+    pycross_wheel_library(
+        name = "numpy_1.22.3",
+        wheel = ":_build_numpy_1.22.3",
+    )
+
     pycross_wheel_library(
         name = "python_i18n_0.3.9",
         wheel = "@lock_wheel_python_i18n_0.3.9_py3_none_any//file",
     )
 
 def repositories():
+    maybe(
+        pypi_file,
+        name = "lock_sdist_numpy_1.22.3",
+        package_name = "numpy",
+        package_version = "1.22.3",
+        filename = "numpy-1.22.3.zip",
+        sha256 = "dbc7601a3b7472d559dc7b933b18b4b66f9aa7452c120e87dfb33d02008c8a18",
+        index = "https://pypi.org",
+    )
+
     maybe(
         pypi_file,
         name = "lock_wheel_python_i18n_0.3.9_py3_none_any",
